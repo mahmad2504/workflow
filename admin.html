@@ -1,0 +1,131 @@
+
+<!doctype html>
+<html lang="en-au">
+    <head>
+        <title>Time Chart</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" >
+		<script type = "text/javascript" src = "https://www.gstatic.com/charts/loader.js"></script>
+		<script type = "text/javascript">
+         google.charts.load('current', {packages: ['corechart','line']});
+		</script>
+	<style>
+	.center {
+		position: fixed; /* or absolute */
+		top: 10%;
+		left: 50%;
+		}
+	</style>
+    </head>
+    <body>
+		<div id="chart_div"></div>
+    </body>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
+	
+	
+    <script>
+		$(function() 
+		{
+			"use strict";
+
+			google.charts.load('current', {
+				callback: drawChart,
+				packages: ['table']
+			});	
+		});
+		function drawChart() 
+		{
+			LoadTicketDataTable();
+		}
+		function HandleData(jsonData) 
+		{
+		/*	var title = jsonData.title;
+			jsonData = jsonData.data;
+			console.log(jsonData);
+			$("#title").html(title);
+			PreprocessData(jsonData);*/
+			datatable = new google.visualization.DataTable(jsonData);
+			var view = new google.visualization.DataView(datatable);
+		
+			for(var i=0;i<jsonData.rows.length;i++)
+			{
+				var old = jsonData.rows[i].c[5].v;
+				var deadline = jsonData.rows[i].c[6].v;
+				if(deadline.length > 0)
+				{
+					if(old >= deadline)
+					{
+						datatable.setProperty(i, 0, 'style', 'color: red;');
+						datatable.setProperty(i, 1, 'style', 'color: red;');
+						
+						datatable.setProperty(i, 7, 'style', 'color: red;');
+						datatable.setProperty(i, 2, 'style', 'color: red;');
+						datatable.setProperty(i, 3, 'style', 'color: red;');
+						datatable.setProperty(i, 4, 'style', 'color: red;');
+						
+						datatable.setProperty(i, 5, 'style', 'color: red;');
+						datatable.setProperty(i, 6, 'style', 'color: red;');
+						datatable.setProperty(i, 7, 'style', 'color: red;');
+					}
+				}
+			}
+			/*
+				var color = '';
+				if(error != null)
+					color = 'color:red;';
+				
+				datatable.setProperty(i, 0, 'style', 'width:15%;');
+				datatable.setProperty(i, 1, 'style', 'text-align: left;width:35%;');	
+				datatable.setProperty(i, 2, 'style', 'text-align: left;width:10%;');	
+				datatable.setProperty(i, 4, 'style', 'width:5%;');	
+				datatable.setProperty(i, 5, 'style', 'text-align: left;width:25%;'+color);	
+				datatable.setProperty(i, 6, 'style', 'width:10%;');			
+			}
+			view.setColumns([0,1,2,4,5,6]);*/
+
+			var options = {
+				showRowNumber: true,
+				width: '70%', 
+				height: '100%',
+				allowHtml:true,
+				sortColumn: 5,
+				sortAscending: false,
+				sort: 'enable'
+			};
+			// Instantiate and draw our chart, passing in some options.
+			var chart = new google.visualization.Table(document.getElementById('chart_div'));
+			//chart.draw(datatable, options);
+			chart.draw(view, options);
+		}
+		function LoadTicketDataTable()
+		{
+			$.ajax(
+			{	url: 'alldata.php',
+					data: {},
+					type: 'post',                  
+					async: 'true',
+					dataType: 'json',
+					beforeSend: function() 
+					{
+						
+					},
+					complete: function() 
+					{
+						
+					},
+					success: function (result) 
+					{
+						HandleData(result);
+						
+					},
+					error: function (request,error) 
+					{
+						 // This callback function will trigger on unsuccessful action               
+						 alert('Network error has occurred please try again!');
+					}
+			}); 
+		}
+    </script>
+</html>
