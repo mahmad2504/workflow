@@ -1,6 +1,14 @@
 <?php 
 
-require 'Tmilos/vendor/autoload.php';
+require 'Tmilos/src/DataTable/DataTable.php';
+require 'Tmilos/src/DataTable/Column.php';
+require 'Tmilos/src/Value/Value.php';
+require 'Tmilos/src/Value/Enum.php';
+require 'Tmilos/src/Value/AbstractValue.php';
+require 'Tmilos/src/Value/AbstractEnum.php';
+require 'Tmilos/src/DataTable/ColumnType.php';
+require 'Tmilos/src/DataTable/Row.php';
+require 'Tmilos/src/DataTable/Cell.php';
 
 use Tmilos\GoogleCharts\DataTable\Column;
 use Tmilos\GoogleCharts\DataTable\ColumnType;
