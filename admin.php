@@ -29,10 +29,10 @@ $params = ParseParams();
 			var user="<?php echo $app->user;?>";
 			var admin=<?php echo $app->admin;?>;
 			var page='tasklist';
-			var details=0;
+			var details=1;
 			<?php 
 				if(isset($params['details']))
-					echo 'details = 1;';
+					echo 'details = '.$params['details'].';';
 			
 			?>;
 		</script>
@@ -51,7 +51,7 @@ $params = ParseParams();
 			</div>
 			<div data-role="content">
 				<div id="chart_div"></div>
-				<form method="get" action="index.php">
+				<form method="get" data-ajax="false" action="index.php">
 					<button type="submit">Go Back</button><br>
 				</form>
 			</div>

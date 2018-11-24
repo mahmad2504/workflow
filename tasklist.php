@@ -31,8 +31,8 @@ require_once('src/session.php');
 		</ul>
 	</div>
 	<p>
-    <a id="createbtn" href="create.php" data-role="button" style="display: none;">Create</a>
-	<a id="adminbtn" href="admin.php" data-ajax="false" data-role="button" style="display: none;">Admin</a>
+    <a id="createbtn" href="create.php" data-ajax="false" data-role="button" style="display: none;">Create</a>
+	<a id="adminbtn" href="admin.php?details=0" data-ajax="false" data-role="button" style="display: none;">Admin</a>
 	<a id="logoutbtn" href="#" data-role="button" >Logout</a>
 </p>
    <!-- /content -->
