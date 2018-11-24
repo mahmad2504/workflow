@@ -1,0 +1,45 @@
+.bar {
+color:white !important;
+text-shadow:none !important;
+background:linear-gradient(#373B44, #4286f4);
+font-size:10px !important;
+}
+.taskclosedbar {
+color:white !important;
+text-shadow:none !important;
+background:linear-gradient(#bdc3c7, #2c3e50);
+font-size:10px !important;
+}
+.taskrevertbar{
+color:white !important;
+text-shadow:none !important;
+background:linear-gradient(#76b852, #8dc26f);
+font-size:10px !important;
+}
+#assignee {
+	white-space:normal !important
+}
+#labelassignee {
+	white-space:normal !important
+}
+.ui-toolbar-header {
+	text-shadow:none !important;
+	background:linear-gradient(#000428, #004e92);
+	color:white !important;
+}
+
+
+.ui-body {
+	text-shadow:none !important;
+	background:linear-gradient(#fdfbfb,#ebedee);
+}
+#createbtn, #logoutbtn ,#adminbtn{
+	text-shadow:none !important;
+	background:linear-gradient(#000428, #004e92);
+	color:white !important;
+	font-size:10px !important;
+	width:80% !important;
+	margin-left:auto;
+    margin-right:auto;
+	
+}

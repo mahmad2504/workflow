@@ -1,0 +1,36 @@
+[
+	{
+		"titles" : [ "One shot\r\n" ],
+		"type" : "Planner",
+		"schedule" : {
+			"start" : "21 November 2018",
+			"freq" : "10"
+		},
+		"number" : "9",
+		"states" : [
+			{
+				"name" : "Coordination Meeting",
+				"assignee" : "mumtaz",
+				"days" : "2",
+				"next" : "1,2"
+			},
+			{
+				"name" : "Coordination Meeting 1",
+				"assignee" : "mumtaz",
+				"days" : "2",
+				"next" : "3"
+			},
+			{
+				"name" : "Coordination Meeting 2",
+				"assignee" : "mumtaz",
+				"days" : "2",
+				"next" : "end"
+			},
+			{
+				"name" : "Approval",
+				"assignee" : "fouzia",
+				"days" : "2"
+			}
+		]
+	}
+]
