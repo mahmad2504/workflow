@@ -44,8 +44,13 @@ function OnChangePasswordClicked()
 }
 function PopulateListView()
 {
-	 $("#listview").empty();
+	$("#listview").empty();
 	
+	if(tickets.length == 0)
+	
+	$('#listview').append(
+			'<li style="text-align: center;" class="bar" data-role="list-divider"> There are no tickets for you</li>');
+			
 	for(var i=0;i<tickets.length;i++)
 	{
 		var activatedby=tickets[i].activatedby;
