@@ -1,7 +1,10 @@
 <?php
 
-define('TICKETS_DIR',__DIR__.'/../data/tickets');
-define('USERDB',__DIR__.'/../data/users.json');
+$dir = str_replace('\\', '/', __DIR__);
+
+define('TICKETS_DIR',$dir .'/../data/tickets');
+define('USERDB',$dir .'/../data/users.json');
+define('WORKFLOWDB',$dir .'/../data/workflow.json');
 
 define('EOL','<BR>');
 define('ACTION_DONE','Done');

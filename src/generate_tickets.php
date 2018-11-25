@@ -1,6 +1,8 @@
 <?php
 require_once('common.php');
-$workflow = file_get_contents('../data/workflow.json');
+require_once('tickets.php');
+
+$workflow = file_get_contents(WORKFLOWDB);
 
 $workflow = str_replace('\r', '', $workflow);
 $workflow = str_replace('\n', '', $workflow);
@@ -73,7 +75,7 @@ function CreateSingleTicket($ticket)
 		$donetickets = array();
 		$activetickets = array();
 	
-		$dir = "../data/tickets/".$ticket->type."/".$title;
+		$dir = TICKETS_DIR."/".$ticket->type."/".$title;
 		//echo $dir.EOL;
 		//$ticket_file = "tickets/".$ticket->type."/".$title."/".Date('Y-m-d');
 		if(!file_exists($dir))
@@ -196,8 +198,8 @@ function CreateTickets($ticket)
 		$i=0;
 		foreach($ticket->daterange as $date)
 		{
-			$ticket_folder = "../data/tickets/".$ticket->type."/".$title;
-			$ticket_file = "../data/tickets/".$ticket->type."/".$title."/".$date;
+			$ticket_folder = TICKETS_DIR."/".$ticket->type."/".$title;
+			$ticket_file = TICKETS_DIR."/".$ticket->type."/".$title."/".$date;
 			if(!file_exists($ticket_folder))
 				mkdir($ticket_folder, 0777, true);
 			
@@ -262,7 +264,8 @@ function CreateGenericTask($taskname,$assignee,$date,$days)
 	$task->states[0] = new StdClass();
 	$task->states[0]->name = 'Task';
 	$task->states[0]->assignee = $assignee;
-	$task->states[0]->days = $days;
+	if($days >= 0)
+		$task->states[0]->days = $days;
 	
 	$task->states[1] = new StdClass();
 	$task->states[1]->name = 'Approval';
@@ -278,7 +281,7 @@ function CreateSingleTimeTicket($ticket,$assignee)
 	global $app;
 	$title = $ticket->titles[0];
 	$date = $ticket->schedule->start;
-	$ticket_path = '../data/tickets/Tasks/'.$title."-".$assignee;
+	$ticket_path = TICKETS_DIR.'/Tasks/'.$title."-".$assignee;
 	$ticket_file = $ticket_path."/".$date;
 	if(file_exists($ticket_file))
 	{

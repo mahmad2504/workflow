@@ -39,6 +39,9 @@ class Ticket
 		$ticket = $this->data;
 		switch($name)
 		{
+			case 'data':
+				return $ticket;
+				break;
 			case 'type':
 				return $ticket->type;
 				break;
@@ -70,7 +73,7 @@ class Ticket
 					$state = $ticket->states[$ticket->ownerstatenumber];
 					if(isset($state->days))
 						return $state->days;
-					return -1;
+					return null;
 				}
 				return null;
 			case 'statename':
@@ -388,6 +391,31 @@ class Ticket
 		}
 		return $tickets;
 	}
+	public function CloneAllUserTickets($user='all')
+	{			
+		$tickets = array();
+		$ctstates = $this->cstates;
+		
+		foreach($ctstates as $stateno=>$cstate)
+		{
+			//echo  $stateno.EOL;
+			foreach($cstate as $state)
+			{
+				if(1)
+				{
+					$ntask = clone $this;
+					if(($state->assignee == $user)||($user=='all'))
+					{
+						//$ntask->owner = $state->assignee;
+						//$ntask->ownerstate = $state;
+						$ntask->ownerstatenumber = $stateno;
+						$tickets[] = $ntask;
+					}
+				}
+			}
+		}
+		return $tickets;
+	}
 	public function toString()
 	{
 		echo $this->title.EOL;
@@ -421,7 +449,8 @@ class Tickets
 	private $list =  array();
 	function __construct()
 	{
-		$this->ReadTickets(TICKETS_DIR);
+		if(file_exists(TICKETS_DIR))
+			$this->ReadTickets(TICKETS_DIR);
 	}
 	private function ReadTickets($dir)
 	{
@@ -451,6 +480,20 @@ class Tickets
 		{
 			echo $ticket->toString();
 		}
+	}
+	public function GetAllTickets($user='all')
+	{
+		$usertickets = array();
+		foreach($this->list as $ticket)
+		{
+			$tkts = $ticket->CloneAllUserTickets($user);
+			foreach($tkts as $t)
+			{
+				//var_dump($t);
+				$usertickets[] = $t;
+			}
+		}
+		return $usertickets;
 	}
 	public function GetActiveTickets($user='all')
 	{

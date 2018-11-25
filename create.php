@@ -40,6 +40,11 @@ if($app->admin == 0)
 						<select name="select-choice-min" id="assignee" data-mini="true">
 						  <?php
 							$i=1;
+							function cmp($a, $b)
+							{
+								return strcmp($a->name, $b->name);
+							}
+							usort($app->users, "cmp");
 							foreach($app->users as $user)
 							{
 								echo '<option value="'.$i.'">'.$user->name.'</option>';
@@ -55,20 +60,23 @@ if($app->admin == 0)
 					
 					
                     <div data-role="fieldcontain">
-                        <label for="date">Date</label>
-						<input type="date" name="date" id="date" value="" placeholder="Assigned to">
+                        <label for="date">Start Date</label>
+						<input type="date" name="date" id="date" value="11/24/2018" placeholder="11/24/2018">
                     </div>
 					<div data-role="fieldcontain">
-						<label for="number-1">Days</label>
-						<input type="number" data-clear-btn="false" name="number-1" id="days" value="2">
-					</div>
-					
+                        <label for="edate">Deadline</label>
+						<input type="date" name="edate" id="edate" value="11/24/2018" placeholder="11/24/2018">
+                    </div>
 					
 					<input type="button" data-theme="b" name="submit" id="createtask" value="Create" >
 					<input type="button" data-theme="b" name="back" id="back" value="Back" >
                 </fieldset>
             </form>                             
         </div>
+		
+		
+		
+
 		<div data-history="false" data-role="popup" id="taskcreated_popup" data-position-to="window" data-transition="turn"><p>Task Created<p></div>
         <div data-history="false" data-role="popup" id="taskcreaterror_popup" data-position-to="window" data-transition="turn"><p>Task Already Exist<p></div>
 		<div data-role="popup" id="error_popup"><p>Network Error<p></div>

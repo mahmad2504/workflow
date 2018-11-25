@@ -234,7 +234,7 @@ $(document).on('click', '#createtask', function()
 			data: {taskname :  $('#taskname').val(),
 				   assignee :  $("#assignee").find(":selected").text(),
 				   date :  $('#date').val(),
-				   days :  $('#days').val()
+				   edate :  $('#edate').val()
 			},
 			//data: {action : 'authorization', formData : $('#check-user').serialize()},
 			type: 'post',                  
@@ -560,7 +560,6 @@ $( document ).ready(function()
 	}
 	if(page == 'create')
 	{
-		
 
 	}
 });

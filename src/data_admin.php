@@ -8,6 +8,7 @@ if($app->admin != 1)
 	SendResponse();
 }
 require_once('tickets.php');
+require_once('generate_tickets.php');
 
 require 'Tmilos/src/DataTable/DataTable.php';
 require 'Tmilos/src/DataTable/Column.php';
@@ -53,7 +54,7 @@ if(!file_exists(TICKETS_DIR))
 
 $tickets = new Tickets();
 $tickets->DoTimeWaitStates();
-$tkts = $tickets->GetActiveTickets();
+$tkts = $tickets->GetAllTickets();
 foreach($tkts as $ticket)
 {
 	$row = array();
@@ -69,7 +70,8 @@ foreach($tkts as $ticket)
 	$interval =date_diff($date1,$date2);
 	$days = $interval->format("%R%a");
 	$row[] = (float)trim($days);
-	if(isset($ticket->days))
+
+	if ($ticket->days != null)
 	{
 		$row[] = $ticket->days;
 		$late =  $ticket->days - $days;
@@ -81,7 +83,7 @@ foreach($tkts as $ticket)
 	else
 	{
 		$row[] = '';
-		$row[] = '';
+		$row[] = 'NA';
 	}
 	$row[] = '';
 	$row[] = $ticket->path;
