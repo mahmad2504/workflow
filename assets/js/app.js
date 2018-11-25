@@ -220,10 +220,51 @@ $(document).on('click', '#logoutbtn', function()
 			}
 		}); 
 })
+function ConvertJsDateFormat(datestr)
+{
+	var d = new Date(datestr);
+	if(d == 'Invalid Date')
+		return '';
+	
+	dateString = d.toUTCString();
+	dateString = dateString.split(' ').slice(0, 4).join(' ').substring(5);
+	return dateString;
+}
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+$(document).on('click', '#createverify', function() 
+{
+	var task=$('#taskname').val();
+	if(task.length == 0)
+		task = "-";
+	
+	var user=$("#assignee").find(":selected").text();
+	
+	var startdate = "";
+	if($('#date').val().length == 0)
+		startdate = 'Today';
+	else
+		startdate = $('#date').val();
+	
+	var endate = "";
+	if($('#edate').val().length == 0)
+		endate = '';
+	else
+		endate  = $('#edate').val();
+	
+	var text ="Creating task "+task+"<br> for <strong>"+capitalizeFirstLetter(user)+"</strong> starting <strong>"+ConvertJsDateFormat(startdate)+"</strong>";
+	if(endate == '')
+		text = text + " with no deadline";
+	else
+		text = text + " with a deadline of <strong>"+ConvertJsDateFormat(endate)+"</strong>";
+	
+	
+	$('#ctask').html(text);
+})
 
 $(document).on('click', '#createtask', function() 
 {
-	// catch the form's submit event
 	if($('#taskname').val().length > 0 && $('#assignee').val().length > 0)
 	{ 	 
 		// Send data to server through the Ajax call
@@ -232,7 +273,7 @@ $(document).on('click', '#createtask', function()
 		
 		$.ajax({url: 'src/data_create.php',
 			data: {taskname :  $('#taskname').val(),
-				   assignee :  $("#assignee").find(":selected").text(),
+				   assignee :  $("#assignee").find(":selected").text().toLowerCase(),
 				   date :  $('#date').val(),
 				   edate :  $('#edate').val()
 			},
@@ -264,11 +305,14 @@ $(document).on('click', '#createtask', function()
 				console.log("Network Error");
 				ShowNetworkError();
 			}
-		});                  
-	} else {
-		alert('Please fill all necessary fields');
+		});
+	} 
+	else 
+	{
+		ShowHalfFilledFormError();
+		
 	}          
-	return false; // cancel original event to prevent form submitting
+	return true; // cancel original event to prevent form submitting
 	
 })
 
@@ -467,6 +511,14 @@ function ShowTaskCreated()
 		$( "#taskcreated_popup" ).popup( );
 		$( "#taskcreated_popup" ).popup( "open" ); 
 		setTimeout( function(){ $( "#taskcreated_popup" ).popup( "close" );}, 2000 );
+	}, 100 );
+}
+function ShowHalfFilledFormError()
+{
+	setTimeout( function(){ 
+		$( "#taskhalffillederror_popup" ).popup( );
+		$( "#taskhalffillederror_popup" ).popup( "open" ); 
+		setTimeout( function(){ $( "#taskhalffillederror_popup" ).popup( "close" );}, 2000 );
 	}, 100 );
 }
 function ShowTaskCreatError()

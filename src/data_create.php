@@ -1,9 +1,7 @@
 <?php
 require_once('common.php');
 require_once('generate_tickets.php');
-
 $params = ParseParams();
-
 if(strlen($params['date'])==0)
 	$params['date'] =  Date('Y-m-d');
 if(strlen($params['edate'])==0)

@@ -47,7 +47,7 @@ if($app->admin == 0)
 							usort($app->users, "cmp");
 							foreach($app->users as $user)
 							{
-								echo '<option value="'.$i.'">'.$user->name.'</option>';
+								echo '<option value="'.$i.'">'.ucfirst($user->name).'</option>';
 								$i++;
 							}
 							?>
@@ -61,24 +61,34 @@ if($app->admin == 0)
 					
                     <div data-role="fieldcontain">
                         <label for="date">Start Date</label>
-						<input type="date" name="date" id="date" value="11/24/2018" placeholder="11/24/2018">
+						<input type="date" name="date" id="date" value="<?php echo Date('Y-m-d');?>" placeholder="<?php echo Date('yyyy-M-d');?>">
                     </div>
 					<div data-role="fieldcontain">
                         <label for="edate">Deadline</label>
-						<input type="date" name="edate" id="edate" value="11/24/2018" placeholder="11/24/2018">
+						<input type="date" name="edate" id="edate" value="" placeholder="">
                     </div>
 					
-					<input type="button" data-theme="b" name="submit" id="createtask" value="Create" >
+					<a data-history="false" data-role="button" href="#popupLogin" data-rel="popup" data-position-to="window"  data-theme="b" name="submit" id="createverify" value="Create" >Create</a>
+		
 					<input type="button" data-theme="b" name="back" id="back" value="Back" >
                 </fieldset>
             </form>                             
         </div>
 		
+		<div data-history="false" data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
+			<form>
+				<div style="padding:10px 20px;">
+					<label for="un" id="ctask"></label>
+					<button id="createtask" type="submit" class="ui-button ui-corner-all ui-shadow ui-button-b">Create <span class="ui-icon ui-icon-check"></span></button>
+				</div>
+			</form>
+		</div>
 		
 		
-
-		<div data-history="false" data-role="popup" id="taskcreated_popup" data-position-to="window" data-transition="turn"><p>Task Created<p></div>
-        <div data-history="false" data-role="popup" id="taskcreaterror_popup" data-position-to="window" data-transition="turn"><p>Task Already Exist<p></div>
+		<div data-history="false" data-role="popup" id="taskcreated_popup" data-position-to="window" data-transition="turn"><p><span style="color:green">Success!&nbsp</span>Task Created<p></div>
+        <div data-history="false" data-role="popup" id="taskcreaterror_popup" data-position-to="window" data-transition="turn"><p><span style="color:red">Failed!&nbsp</span>Task Already Exist<p></div>
+		<div data-history="false" data-role="popup" id="taskhalffillederror_popup" data-position-to="window" data-transition="turn"><p><span style="color:red">Failed!&nbsp</span>Task Description is missing<p></div>
+		
 		<div data-role="popup" id="error_popup"><p>Network Error<p></div>
 		<div data-theme="a" data-role="footer" data-position="fixed">	
         </div>
