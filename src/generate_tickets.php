@@ -259,7 +259,7 @@ function CreateGenericTask($taskname,$assignee,$date,$days)
 	$task->schedule = new StdClass();
 	$task->schedule->start = $date;
 	$task->schedule->freq = 0;
-	$task->number = 1;
+	$task->number = 0;
 	$task->states = array();
 	$task->states[0] = new StdClass();
 	$task->states[0]->name = 'Task';

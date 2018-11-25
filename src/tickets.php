@@ -46,7 +46,9 @@ class Ticket
 				return $ticket->type;
 				break;
 			case 'number':
-				return $ticket->number;
+				if(isset($ticket->number))
+					return $ticket->number;
+				return 0;
 				break;
 			case 'nextaction':
 				if(isset($ticket->ownerstatenumber))
@@ -470,6 +472,8 @@ class Tickets
 					continue;
 		
 				$ticket = new Ticket($ticket_file);
+				if($ticket->data == null)
+					continue;
 				$this->list[] = $ticket;
 			}
 		}

@@ -131,6 +131,7 @@ function DeleteTicket(path)
 			},
 			success: function (result) 
 			{
+				console.log(result);
 				ShowDeletedSuccess();
 			},
 			error: function (request,error) 

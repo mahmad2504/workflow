@@ -13,4 +13,19 @@ if(!isset($params['path']))
 	SendResponse();
 }
 unlink ($params['path']);
+if(dir_is_empty(dirname($params['path'])))
+	rmdir(dirname($params['path']));
+
 SendResponse();
+
+function dir_is_empty($dir) {
+  $handle = opendir($dir);
+  while (false !== ($entry = readdir($handle))) {
+    if ($entry != "." && $entry != "..") {
+      closedir($handle);
+      return FALSE;
+    }
+  }
+  closedir($handle);
+  return TRUE;
+}

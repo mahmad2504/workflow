@@ -63,6 +63,8 @@ function PopulateListView()
 		var statename=tickets[i].statename;
 		var revertable=tickets[i].revertable;
 		var number=tickets[i].number;
+		if(number == 0)
+			number = "";
 		var type=tickets[i].type.toLowerCase();
 		
 		var col='green';
